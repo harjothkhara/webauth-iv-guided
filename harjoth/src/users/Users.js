@@ -21,15 +21,16 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-        const endpoint = 'http://localhost:5000/api/users';
-        const token = localStorage.getItem('jwt'); //if the token is not there this will not even get sent - will be undefined
-        const requestConfig = {  //for assembling headers
-            headers: {
-                authorization: token
-            }
-        }
-
-        axios.get(endpoint, requestConfig)
+        const endpoint = '/users';
+        // const endpoint = 'http://localhost:5000/api/users';
+        // const token = localStorage.getItem('jwt'); //if the token is not there this will not even get sent - will be undefined
+        // const requestConfig = {  //for assembling headers
+        //     headers: {
+        //         authorization: token
+        //     }
+        // };
+          // .get(endpoint, requestConfig) not need for this now - see requiresAuth
+        axios.get(endpoint) //config
         .then(res => {
             this.setState({ users: res.data });
         })
