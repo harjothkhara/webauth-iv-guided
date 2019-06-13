@@ -14,8 +14,10 @@ function App() {
           <NavLink to='/users'>Users</NavLink>
       </header>
       <main>
-        <Route path = '/login' component={Login}></Route>
-        <Route path = '/users' component={Users}></Route> 
+        <Route path = '/login' component={Login} />
+        
+        <Route path = '/users' component={Users} /> 
+        {/* rendering whatever comes out of this requiresAuth(Users) */}
       </main>
     </>
   );

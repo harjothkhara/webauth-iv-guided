@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import requiresAuth from '../auth/requiresAuth';
 
 class Users extends React.Component {
     state = {
@@ -22,7 +23,7 @@ class Users extends React.Component {
     componentDidMount() {
         const endpoint = 'http://localhost:5000/api/users';
         const token = localStorage.getItem('jwt'); //if the token is not there this will not even get sent - will be undefined
-        const requestConfig = { 
+        const requestConfig = {  //for assembling headers
             headers: {
                 authorization: token
             }
@@ -36,4 +37,4 @@ class Users extends React.Component {
     }
 }
 
-export default Users;
+export default requiresAuth(Users); //passing in Users component through the requiresAuth function
