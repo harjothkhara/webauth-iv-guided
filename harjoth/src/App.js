@@ -1,21 +1,29 @@
 import React from 'react'; // <<<<<<<<<<<<<
-import { Route, NavLink } from 'react-router-dom'; // <<<<<<<<<<<<<
+import { Route, NavLink, withRouter } from 'react-router-dom'; // <<<<<<<<<<<<< withRouter - properties like history will be available
 
 import './App.css';
 import Login from './auth/Login'; // <<<<<<<<<<<<<
 import Users from './users/Users'; //<<<<<<<<<
 
-function App() {
+function App(props) {
+  function logout() {
+    localStorage.removeItem('jwt');
+    props.history.push('/login')
+  }
   return (
     <>
       <header>
           <NavLink to='/login'>Login</NavLink>
           &nbsp;|&nbsp;
           <NavLink to='/users'>Users</NavLink>
+          &nbsp;|&nbsp;
+          <button type="button" onClick={logout}>
+            Logout
+           </button>
       </header>
       <main>
         <Route path = '/login' component={Login} />
-        
+
         <Route path = '/users' component={Users} /> 
         {/* rendering whatever comes out of this requiresAuth(Users) */}
       </main>
@@ -23,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);
