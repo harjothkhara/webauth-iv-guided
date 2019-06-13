@@ -1,16 +1,17 @@
 import React from 'react';
+import axios from "axios";
 
 class Login extends React.Component {
     state = {
         username: 'sam',
-        password: 'password'
-    }
+        password: 'pass'
+    };
 
     render() {
         return (
         <>
         <h2>Login</h2>
-        <form>
+        <form onSubmit={this.submitForm}>
             <div>
                 <label htmlFor='username' />
                     <input 
@@ -41,7 +42,21 @@ class Login extends React.Component {
         const { id, value } = event.target;
 
         this.setState({ [id]: value });
-    };    
+    }; 
+    
+    submitForm = event => {
+        event.preventDefault();
+        const endpoint = 'http://localhost:5000/api/auth/login';
+
+        axios
+          .post(endpoint, this.state)
+          .then(res => {
+           localStorage.setItem('jwt', res.data.token);
+        })
+          .catch(err => {
+            console.error('Login Error', err);
+        });
+    };
 }
 
 export default Login;
